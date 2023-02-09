@@ -5,8 +5,8 @@
 
 #include "Game.h"
 
-constexpr float FPS = 60.0f;
-constexpr float DELAY_TIME = 1000.0f / FPS;
+constexpr float FPS = 60.0f;	// Target FPS
+constexpr float DELAY_TIME = 1000.0f / FPS;	// Target time between frames
 
 /**
  * \brief Program Entry Point
@@ -27,20 +27,25 @@ int main(int argc, char* args[])
 	// Main Game Loop
 	while (Game::Instance().IsRunning())
 	{
+		//get time in ms at the start of the frame
 		const auto frame_start = static_cast<float>(SDL_GetTicks());
 
-		Game::Instance().HandleEvents();
-		Game::Instance().Update();
-		Game::Instance().Render();
+		//Calling three functions in sequence (functions are a list of instructions)
+		Game::Instance().HandleEvents();		// Read inputs from the player
+		Game::Instance().Update();				// Update the game state according to the input
+		Game::Instance().Render();				// Draw to the screen
 
+		// Get time that has passed this frame
 		if (const float frame_time = static_cast<float>(SDL_GetTicks()) - frame_start;
-			frame_time < DELAY_TIME)
+			frame_time < DELAY_TIME) // If it took less than 60 ms then it will delay
 		{
 			SDL_Delay(static_cast<int>(DELAY_TIME - frame_time));
 		}
 
-		// delta time
+		// delta time. How much time time has passed since the start  of the frame
 		const auto delta_time = (static_cast<float>(SDL_GetTicks()) - frame_start) / 1000.0f;
+		
+		//Setting a variable in-game?
 		Game::Instance().SetDeltaTime(delta_time);
 
 		frames++;

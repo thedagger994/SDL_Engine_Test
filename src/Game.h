@@ -25,11 +25,22 @@
 class Game
 {
 public:
+	//This class Game is set up such that you don't have to make variables of type game. There is one declared here.
+	//You can access the singular Game variable by calling this function Instance(), which is a member of the Game class.
+	//The static keyword makes this function accessible with just the class name, not the actual variable of type Game.
+	//We can call this function as if Game was a namespace i.e. Game::Instance()
 	static Game& Instance()
 	{
 		static Game instance;
 		return instance;
 	}
+	
+	//Functions are reusable lists of instructions. Functions declared inside a class are Member Functions
+	//These Member Functions are specifically called on a variable of type Game, using the "." access operator
+	// + and - are opperators like the . (period operator)
+	//In math, f(x) = 2x is a function which takes x and returns 2 * x, which we can assume is graphable on xand y axis
+	//A function in C++ takes inputs, also called parameters or arguments, and gives one output.
+	//
 
 	// simply set the isRunning variable to true
 	void Init();
